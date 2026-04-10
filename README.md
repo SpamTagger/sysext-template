@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/SpamTagger/sysext-hello/refs/heads/main/sysext.svg" alt="systemd sysext logo" style="height:2em; vertical-align:middle;"> sysext-template
+# <img src="https://raw.githubusercontent.com/SpamTagger/sysext-template/refs/heads/main/sysext.svg" alt="systemd sysext logo" style="height:2em; vertical-align:middle;"> sysext-template
 
 ## About
 
