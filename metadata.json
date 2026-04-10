@@ -1,0 +1,10 @@
+{
+  "name": "sysext-hello",
+  "description": "Provide the 'hello' package as extension for Bootc",
+  "architectures": [ "amd64", "arm64" ],
+  "dists": [ "trixie", "forky" ],
+  "component": "main",
+  "package": "hello",
+  "update": "none",
+  "repository": "https://github.com/SpamTagger/sysext-hello"
+}
