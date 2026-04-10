@@ -26,14 +26,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="4.2381947"
-     inkscape:cx="86.829424"
-     inkscape:cy="-4.8369652"
+     inkscape:cx="86.829423"
+     inkscape:cy="-4.8369651"
      inkscape:window-width="1597"
      inkscape:window-height="1032"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg11" />
+     inkscape:current-layer="svg11"
+     showgrid="false" />
   <title
      id="title1">systemd logo</title>
   <metadata
@@ -100,16 +101,8 @@
          id="circle10" />
     </g>
   </g>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20.7009px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke-width:0.970359"
-     x="57.795536"
-     y="41.506603"
-     id="text11"
-     transform="scale(0.87321884,1.1451883)"><tspan
-       sodipodi:role="line"
-       id="tspan11"
-       x="57.795536"
-       y="41.506603"
-       style="stroke-width:0.970359">x</tspan></text>
+  <path
+     d="m 50.917969,34.568359 3.566406,6.332032 -3.742188,6.632812 h 3.345704 l 2.197265,-4.097656 2.22461,4.097656 h 3.34375 l -3.742188,-6.65625 3.566406,-6.308594 h -3.345703 l -2.046875,3.84375 -2.021484,-3.84375 z"
+     style="font-weight:bold;font-size:20.7009px;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.970359"
+     id="path8" />
 </svg>
