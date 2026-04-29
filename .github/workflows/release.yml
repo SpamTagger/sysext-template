@@ -1,14 +1,11 @@
 name: Build and Release Sysext Package
 
 run-name: >
-  Publish ${GITHUB_REF_NAME}
+  Publish for tag: ${{ github.event.client_payload.tag }}
 
 on:
   repository_dispatch:
     types: [upstream-update]
-  push:
-    tags:
-      - "*"
 
 jobs:
   build:
@@ -63,3 +60,4 @@ jobs:
             release.json
           token: ${{ secrets.RELEASE_TOKEN }}
           overwrite_files: true
+          tag_name: ${{ github.event.client_payload.tag }}
