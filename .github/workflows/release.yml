@@ -44,12 +44,13 @@ jobs:
       - name: Build Release Metadata
         id: metadata
         run: |
-          echo -n "{\"version\":\"${GITHUB_REF_NAME#v}\",\"date\":\"$(date +%FT%T)\",\"versions\":[" > release.json
+          JSON="{\"version\":\"${GITHUB_REF_NAME#v}\",\"date\":\"$(date +%FT%T)\",\"package_versions\":["
           for i in $(find artifacts -name *.manifest); do
             source $i
-            echo -n "\"${VERSION_CODENAME}_${ARCH}\":\"${PACKAGE_VERSION}\"" >> release.json
+            JSON="${JSON}\"${VERSION_CODENAME}_${ARCH}\":\"${PACKAGE_VERSION}\","
           done
-          echo -n "]}" >> release.json
+          JSON="${JSON%,}]}"
+          echo -n $JSON > release.json
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
