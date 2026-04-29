@@ -6,5 +6,5 @@
   "component": "main",
   "package": "hello",
   "update": "none",
-  "repository": "https://github.com/SpamTagger/sysext-hello"
+  "repository": "https://github.com/SpamTagger/sysext-template"
 }
