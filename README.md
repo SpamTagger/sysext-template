@@ -14,7 +14,7 @@ This repository fetches the defined package from the Debian repositories, extrac
 
 In the most simple case, you should simply need to create a new repo with this one as a template and then update the `metadata.json` file to publish a new extension.
 
-This template uses the `hello` example package which is build for `trixie` and `forky`, for both the `amd64` and `arm64` architectures. The `metadata.json` consists of:
+This template uses the `hello` example package which is built for `trixie` and `forky`, for both the `amd64` and `arm64` architectures. The `metadata.json` consists of:
 
 ```json
 {
@@ -49,3 +49,8 @@ You should verify that the component is correct and update the remaining fields 
 ## Actions
 
 The repository ships with GitHub actions to automatically build the extensions and create a new GitHub release as well as to automatically check for new versions in the Debian repository in order to trigger the former.
+
+To create a release, you need to add a "RELEASE_TOKEN" secret to the repository which includes a Personal Access Token with the permission to create releases. For fine-grained tokens, this means that it needs tho following **Repository permissions** for the user or organization housing the repo:
+
+* **Read** access to metadata
+* **Read** and **Write** access to code and workflows
