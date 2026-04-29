@@ -41,15 +41,15 @@ jobs:
         with:
           path: artifacts
 
-      - name: Build Release Text
-        id: text
+      - name: Build Release Metadata
+        id: metadata
         run: |
-          echo "| Debian Version | Package Version | Architecture |" >> Release.txt
-          echo "| -------------- | --------------- | ------------ |" >> Release.txt
+          echo -n "{\"version\":\"${GITHUB_REF_NAME#v}\",\"date\":\"$(date +%FT%T)\",\"versions\":[" > release.json
           for i in $(find artifacts -name *.manifest); do
             source $i
-            echo "| $VERSION_CODENAME | $PACKAGE_VERSION | $ARCH |" >> Release.txt
+            echo -n "\"${VERSION_CODENAME}_${ARCH}\":\"${PACKAGE_VERSION}\"" >> release.json
           done
+          echo -n "]}" >> release.json
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
@@ -57,6 +57,6 @@ jobs:
           files: |
             artifacts/**/*.squashfs
             artifacts/**/*.manifest
-            Release.txt
+            release.json
           token: ${{ secrets.RELEASE_TOKEN }}
           overwrite_files: true
