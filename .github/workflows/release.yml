@@ -4,6 +4,8 @@ run-name: >
   Publish ${GITHUB_REF_NAME}
 
 on:
+  repository_dispatch:
+    types: [upstream-update]
   push:
     tags:
       - "*"

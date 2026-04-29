@@ -52,7 +52,12 @@ jobs:
           git tag "${{ steps.tag.outputs.tag }}"
           git push origin "${{ steps.tag.outputs.tag }}" -f
 
-      - name: Summary
+      - name: Trigger build workflow
         if: steps.check.outputs.rebuild == 'true'
-        run: |
-          echo "Triggered rebuild with tag: ${{ steps.tag.outputs.tag }}"
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          event-type: upstream-update
+          client-payload: |
+            {
+              "tag": "${{ steps.tag.outputs.tag }}"
+            }
