@@ -44,12 +44,12 @@ jobs:
       - name: Build Release Metadata
         id: metadata
         run: |
-          JSON="{\"version\":\"${GITHUB_REF_NAME#v}\",\"date\":\"$(date +%FT%T)\",\"package_versions\":["
+          JSON="{\"version\":\"${GITHUB_REF_NAME#v}\",\"date\":\"$(date +%FT%T)\",\"package_versions\":{"
           for i in $(find artifacts -name *.manifest); do
             source $i
             JSON="${JSON}\"${VERSION_CODENAME}_${ARCH}\":\"${PACKAGE_VERSION}\","
           done
-          JSON="${JSON%,}]}"
+          JSON="${JSON%,}}}"
           echo -n $JSON > release.json
 
       - name: Create GitHub Release
