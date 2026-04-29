@@ -1,0 +1,58 @@
+name: Check Upstream Packages
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    outputs:
+      rebuild: ${{ steps.check.outputs.rebuild }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl dpkg-dev
+
+      - name: Run upstream version check
+        id: check
+        run: |
+          ./update.sh >> $GITHUB_OUTPUT
+
+      - name: Stop if no rebuild required
+        if: steps.check.outputs.rebuild != 'true'
+        run: |
+          echo "No upstream changes detected: ${{ steps.check.outptus.rebuild }}"
+          exit 0
+
+      - name: Generate build tag
+        if: steps.check.outputs.rebuild == 'true'
+        id: tag
+        run: |
+          TAG="$(date +'%Y.%m.%d-%H%M')"
+          echo "Generated tag: $TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        if: steps.check.outputs.rebuild == 'true'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git tag "${{ steps.tag.outputs.tag }}"
+          git push origin "${{ steps.tag.outputs.tag }}" -f
+
+      - name: Summary
+        if: steps.check.outputs.rebuild == 'true'
+        run: |
+          echo "Triggered rebuild with tag: ${{ steps.tag.outputs.tag }}"
