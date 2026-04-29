@@ -1,0 +1,64 @@
+name: Build and Release Sysext Package
+
+run-name: >
+  Publish at ${{ github.event.inputs.version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build SquashFS
+        run: |
+          ./build.sh
+
+      - name: Extract Timestamp
+        id: version
+        run: |
+          source output/*.manifest
+          echo "BUILD_TIME=${BUILD_TIME}" >> $GITHUB_OUTPUT
+
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          path: output/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Build Release Text
+        id: text
+        run: |
+          echo "| Debian Version | Package Version | Architecture |" >> Release.txt
+          echo "| -------------- | --------------- | ------------ |" >> Release.txt
+          for i in $(ls artifacts/**/*.manifest); do
+            source artifacts/**/$i
+            echo "| $VERSION_CODENAME | $PACKAGE_VERSION | $ARCH |" >> Release.txt
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            artifacts/**/*.squashfs
+            artifacts/**/*.manifest
+            Release.txt
+          token: ${{ secrets.RELEASE_TOKEN }}
+          overwrite_files: true
