@@ -1,7 +1,7 @@
 name: Build and Release Sysext Package
 
 run-name: >
-  Publish at ${{ github.event.inputs.version }}
+  Publish ${GITHUB_REF_NAME}
 
 on:
   push:
