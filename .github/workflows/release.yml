@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "| Debian Version | Package Version | Architecture |" >> Release.txt
           echo "| -------------- | --------------- | ------------ |" >> Release.txt
-          for i in $(find artificats -name *.manifest); do
+          for i in $(find artifacts -name *.manifest); do
             source $i
             echo "| $VERSION_CODENAME | $PACKAGE_VERSION | $ARCH |" >> Release.txt
           done
