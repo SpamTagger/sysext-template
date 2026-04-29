@@ -4,11 +4,9 @@ run-name: >
   Publish at ${{ github.event.inputs.version }}
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        required: false
-        type: string
+  push:
+    tags:
+      - "*"
 
 jobs:
   build:
