@@ -14,14 +14,16 @@ This repository fetches the defined package from the Debian repositories, extrac
 
 In the most simple case, you should simply need to create a new repo with this one as a template and then update the `metadata.json` file to publish a new extension.
 
-This template uses the `hello` example package which is built for `trixie` and `forky`, for both the `amd64` and `arm64` architectures. The `metadata.json` consists of:
+In order to include only the necessary dependencies (ie. those not already provided by `spamtagger-bootc` images), the build script resolves the missing dependencies from inside the relevant `spamtagger-bootc` container. This means that we can only produce extension packages for distribution versions and architectures which have an existing image in the registry.
+
+This template uses the `hello` example package which is built for `trixie` for the `amd64` architectures. The `metadata.json` consists of:
 
 ```json
 {
   "name": "sysext-hello",
   "description": "Provide the 'hello' package as extension for Bootc",
-  "architectures": [ "amd64", "arm64" ],
-  "dists": [ "trixie", "forky" ],
+  "architectures": [ "amd64" ],
+  "dists": [ "trixie" ],
   "component": "main",
   "package": "hello",
   "update": "none",

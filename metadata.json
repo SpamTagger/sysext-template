@@ -1,8 +1,8 @@
 {
   "name": "sysext-hello",
   "description": "Provide the 'hello' package as extension for Bootc",
-  "architectures": [ "amd64", "arm64" ],
-  "dists": [ "trixie", "forky" ],
+  "architectures": [ "amd64" ],
+  "dists": [ "trixie" ],
   "component": "main",
   "package": "hello",
   "update": "none",
